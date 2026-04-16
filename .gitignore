@@ -1,0 +1,36 @@
+# General
+.DS_Store
+*.log
+.idea/
+.vscode/
+
+# Frontend (Next.js)
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/.pnpm-debug.log*
+
+# Backend (FastAPI / Python)
+backend/__pycache__/
+backend/*.py[cod]
+backend/*$py.class
+backend/.pytest_cache/
+backend/venv/
+backend/.env
+backend/talentia.db
+backend/talentia.db-journal
+backend/talentia.db-shm
+backend/talentia.db-wal
+backend/instance/
+backend/dist/
+backend/build/
+backend/*.egg-info/
+backend/uploads/

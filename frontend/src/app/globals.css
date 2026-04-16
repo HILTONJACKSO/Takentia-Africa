@@ -1,0 +1,142 @@
+/* Liquid Layout Foundations */
+:root {
+    --sidebar-width: 260px;
+    --transition-speed: 0.3s;
+}
+
+/* Fluid Typography */
+html {
+    font-size: 16px;
+}
+
+@media (max-width: 575.98px) {
+    html {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 2000px) {
+    html {
+        font-size: 20px;
+    }
+}
+
+/* Watch / Micro-screens (< 320px) */
+@media (max-width: 319.98px) {
+    .container-fluid {
+        padding: 0.5rem !important;
+    }
+
+    .card {
+        padding: 0.75rem !important;
+    }
+
+    h2 {
+        font-size: 1.25rem !important;
+    }
+
+    .btn {
+        padding: 0.5rem !important;
+    }
+
+    .d-none-watch {
+        display: none !important;
+    }
+}
+
+/* TV / Large Screens (> 2500px) */
+@media (min-width: 2500px) {
+    .container-fluid {
+        max-width: 2400px;
+        margin: 0 auto;
+    }
+}
+
+/* Responsive Containers */
+.main-content-wrapper {
+    transition: margin-left var(--transition-speed);
+    width: 100%;
+}
+
+@media (min-width: 992px) {
+    .main-content-wrapper {
+        margin-left: var(--sidebar-width);
+    }
+}
+
+/* Scrollbar Refinement */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+}
+
+/* Animation Utilities */
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Custom Utility Overrides */
+.sidebar {
+    background-color: #1d256d !important;
+}
+
+.text-primary {
+    color: #1d256d !important;
+}
+
+.bg-primary {
+    background-color: #1d256d !important;
+}
+
+.btn-primary {
+    background-color: #1d256d !important;
+    border-color: #1d256d !important;
+    border-radius: 10px;
+}
+
+.btn-primary:hover {
+    background-color: #121952 !important;
+}
+
+.text-warning {
+    color: #D0DD28 !important;
+}
+
+.bg-warning {
+    background-color: #D0DD28 !important;
+}
+
+/* Dashboard Card Enhancements */
+.stat-card {
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    background: linear-gradient(to bottom right, #ffffff, #fcfcfc);
+}
+
+.quick-action-btn:active {
+    transform: scale(0.95);
+}
