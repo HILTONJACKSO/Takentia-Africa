@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "@/lib/api";
 
 import React, { useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
@@ -34,7 +35,7 @@ function NewAssetContent() {
             const isCompanyIdValid = companyId && companyId !== "null" && companyId !== "undefined";
             const targetCompanyId = isCompanyIdValid ? companyId : "1";
 
-            await axios.post(`http://localhost:8001/api/v1/operations/assets?company_id=${targetCompanyId}`, {
+            await axios.post(`${API_BASE_URL}/operations/assets`, {
                 ...formData,
                 cost: parseFloat(formData.cost),
                 company_id: parseInt(targetCompanyId)

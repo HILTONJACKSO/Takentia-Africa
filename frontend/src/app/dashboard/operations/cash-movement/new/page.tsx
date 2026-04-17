@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "@/lib/api";
 
 import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
@@ -27,7 +28,7 @@ function NewCashMovementContent() {
             const token = localStorage.getItem("token");
             try {
                 const isCompanyIdValid = companyId && companyId !== "null" && companyId !== "undefined";
-                const url = isCompanyIdValid ? `http://localhost:8001/api/v1/operations/petty-cash/accounts?company_id=${companyId}` : `http://localhost:8001/api/v1/operations/petty-cash/accounts`;
+                const url = isCompanyIdValid ? `${API_BASE_URL}` : `${API_BASE_URL}`;
                 const res = await axios.get(url, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
@@ -58,7 +59,7 @@ function NewCashMovementContent() {
             const isCompanyIdValid = companyId && companyId !== "null" && companyId !== "undefined";
             const targetCompanyId = isCompanyIdValid ? companyId : "1";
 
-            await axios.post(`http://localhost:8001/api/v1/operations/cash-movements?company_id=${targetCompanyId}`, {
+            await axios.post(`${API_BASE_URL}/operations/cash-movement`, {
                 ...formData,
                 from_account_id: formData.from_account_id ? parseInt(formData.from_account_id) : null,
                 to_account_id: formData.to_account_id ? parseInt(formData.to_account_id) : null,

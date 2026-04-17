@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "@/lib/api";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -28,9 +29,10 @@ export default function PayrollPage() {
         setLoading(true);
         const token = localStorage.getItem("token");
         try {
+            const API_URL = `${API_BASE_URL}`;
             const url = companyId
-                ? `http://localhost:8001/api/v1/payroll/runs?company_id=${companyId}`
-                : "http://localhost:8001/api/v1/payroll/runs";
+                ? `${API_URL}/payroll/runs?company_id=${companyId}`
+                : `${API_URL}/payroll/runs`;
             const res = await axios.get(url, {
                 headers: { Authorization: `Bearer ${token}` }
             });
@@ -57,9 +59,7 @@ export default function PayrollPage() {
             const payload: any = { month: genMonth, year: genYear };
             if (companyId) payload.company_id = parseInt(companyId);
 
-            await axios.post("http://localhost:8001/api/v1/payroll/runs/generate",
-                payload,
-                { headers: { Authorization: `Bearer ${token}` } });
+            await axios.post(`${API_BASE_URL}/payroll/runs`, payload, { headers: { Authorization: `Bearer ${token}` } });
 
             await fetchRuns();
             setShowModal(false);
@@ -75,7 +75,7 @@ export default function PayrollPage() {
         setPayslipsLoading(true);
         const token = localStorage.getItem("token");
         try {
-            const res = await axios.get(`http://localhost:8001/api/v1/payroll/runs/${run.id}/payslips`, {
+            const res = await axios.get(`${API_BASE_URL}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setPayslips(res.data);
@@ -89,8 +89,7 @@ export default function PayrollPage() {
     const handleStatusUpdate = async (runId: number, status: string) => {
         const token = localStorage.getItem("token");
         try {
-            await axios.patch(`http://localhost:8001/api/v1/payroll/runs/${runId}/status?status=${status}`,
-                {},
+            await axios.patch(`${API_BASE_URL}`, {},
                 { headers: { Authorization: `Bearer ${token}` } });
             await fetchRuns();
             if (selectedRun && selectedRun.id === runId) {

@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "@/lib/api";
 
 import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
@@ -30,11 +31,11 @@ function AssetsContent() {
 
             // Fetch assets and employees in parallel
             const [assetRes, empRes] = await Promise.all([
-                axios.get(`http://localhost:8001/api/v1/operations/assets?${companyQuery}`, {
+                axios.get(`${API_BASE_URL}/operations/assets`, {
                     headers: { Authorization: `Bearer ${token}` },
                     timeout: 5000
                 }),
-                axios.get(`http://localhost:8001/api/v1/hr/employees?${companyQuery}`, {
+                axios.get(`${API_BASE_URL}/operations/assets`, {
                     headers: { Authorization: `Bearer ${token}` },
                     timeout: 5000
                 })

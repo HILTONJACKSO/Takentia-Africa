@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "@/lib/api";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import axios from "axios";
@@ -24,18 +25,18 @@ export default function CompanyDashboardPage() {
 
         const fetchData = async () => {
             try {
-                const resComp = await axios.get("http://localhost:8001/api/v1/companies/", {
+                const resComp = await axios.get(`${API_BASE_URL}/companies/${companyId}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 const currentComp = resComp.data.find((c: any) => c.id === parseInt(companyId as string));
                 setCompany(currentComp);
 
-                const resEmp = await axios.get(`http://localhost:8001/api/v1/hr/employees?company_id=${companyId}`, {
+                const resEmp = await axios.get(`${API_BASE_URL}/companies/${companyId}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setEmployees(resEmp.data);
 
-                const resPayroll = await axios.get(`http://localhost:8001/api/v1/payroll/runs?company_id=${companyId}`, {
+                const resPayroll = await axios.get(`${API_BASE_URL}/companies/${companyId}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setPayrollRuns(resPayroll.data);
@@ -151,7 +152,7 @@ export default function CompanyDashboardPage() {
                     <div className="card h-100 p-4 border-0 shadow-sm text-white" style={{
                         borderRadius: '15px',
                         background: `linear-gradient(135deg, ${brandColor} 0%, ${secondaryBrandColor} 100%)`
-                    }}>
+                    }>
                         <p className="mb-1 small fw-bold text-uppercase opacity-75">Quick Action</p>
                         <Link href={`/dashboard/hr/staff?company_id=${companyId}`} className="text-white text-decoration-none d-flex align-items-center justify-content-between mt-2">
                             <span className="fw-bold">Manage Unit</span>

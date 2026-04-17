@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "@/lib/api";
 import React, { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import axios from "axios";
@@ -47,8 +48,8 @@ export default function StaffDirectory() {
 
         const isCompanyIdValid = companyId && companyId !== "null" && companyId !== "undefined";
         const url = isCompanyIdValid
-            ? `http://localhost:8001/api/v1/hr/employees?company_id=${companyId}`
-            : "http://localhost:8001/api/v1/hr/employees";
+            ? `${API_BASE_URL}/hr/employees?company_id=${companyId}`
+            : `${API_BASE_URL}/hr/employees`;
 
         setLoading(true);
         setError(null);
@@ -81,7 +82,7 @@ export default function StaffDirectory() {
         
         try {
             const token = localStorage.getItem("token");
-            await axios.delete(`http://localhost:8001/api/v1/hr/employees/${id}`, {
+            await axios.delete(`${API_BASE_URL}/hr/employees/${id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             // Update local state

@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "@/lib/api";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
@@ -47,7 +48,7 @@ export default function AddStaffPage() {
             return;
         }
 
-        axios.get("http://localhost:8001/api/v1/hr/departments", {
+        axios.get(`${API_BASE_URL}/companies/`, {
             headers: { Authorization: `Bearer ${token}` }
         }).then(res => setDepartments(res.data))
             .catch(err => console.error("Error fetching departments:", err));
@@ -86,7 +87,7 @@ export default function AddStaffPage() {
         if (cv) data.append("cv", cv);
 
         try {
-            await axios.post("http://localhost:8001/api/v1/hr/employees", data, {
+            await axios.post(`${API_BASE_URL}/hr/employees`, data, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     Authorization: `Bearer ${token}`

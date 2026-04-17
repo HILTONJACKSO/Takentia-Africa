@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "@/lib/api";
 
 import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
@@ -55,13 +56,13 @@ function ReportsContent() {
             const companyQuery = companyId ? `company_id=${companyId}` : "";
 
             const [statsRes, historyRes, distRes] = await Promise.all([
-                axios.get(`http://localhost:8001/api/v1/reports/dashboard-stats?${companyQuery}`, {
+                axios.get(`${API_BASE_URL}/reports/dashboard-stats?${companyQuery}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 }),
-                axios.get(`http://localhost:8001/api/v1/reports/financial-history?${companyQuery}`, {
+                axios.get(`${API_BASE_URL}/reports/financial-history?${companyQuery}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 }),
-                axios.get(`http://localhost:8001/api/v1/reports/distribution?${companyQuery}`, {
+                axios.get(`${API_BASE_URL}/reports/distribution?${companyQuery}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 })
             ]);

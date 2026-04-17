@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "@/lib/api";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -26,7 +27,7 @@ export default function Sidebar() {
     useEffect(() => {
         if (companyId) {
             const token = localStorage.getItem("token");
-            axios.get(`http://localhost:8001/api/v1/companies/`, {
+            axios.get(`${API_BASE_URL}/companies/`, {
                 headers: { Authorization: `Bearer ${token}` }
             }).then(res => {
                 setAllCompanies(res.data);
@@ -38,7 +39,7 @@ export default function Sidebar() {
             // Even if no active company id in path, we might want all companies for the switcher
             const token = localStorage.getItem("token");
             if (token) {
-                axios.get(`http://localhost:8001/api/v1/companies/`, {
+                axios.get(`${API_BASE_URL}/companies/`, {
                     headers: { Authorization: `Bearer ${token}` }
                 }).then(res => setAllCompanies(res.data))
                     .catch(() => { });

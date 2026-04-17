@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "@/lib/api";
 import React, { useEffect, useState, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -28,8 +29,8 @@ export default function AttendancePage() {
     const fetchEmployees = async () => {
         const token = localStorage.getItem("token");
         try {
-            const url = companyId && companyId !== "null" ? `http://localhost:8001/api/v1/hr/employees?company_id=${companyId}` : `http://localhost:8001/api/v1/hr/employees`;
-            const res = await axios.get(url, { headers: { Authorization: `Bearer ${token}` }});
+            const url = companyId && companyId !== "null" ? `${API_BASE_URL}/hr/attendance` : `${API_BASE_URL}/hr/attendance`;
+            const res = await axios.get(url, { headers: { Authorization: `Bearer ${token}` } });
             setEmployees(res.data);
         } catch(err) {
             console.error("Failed to fetch employees", err);
@@ -51,10 +52,10 @@ export default function AttendancePage() {
             const fullQuery = [companyQuery, dateQuery].filter(Boolean).join("&");
 
             const [recordsRes, summaryRes] = await Promise.all([
-                axios.get(`http://localhost:8001/api/v1/hr/attendance?${fullQuery}`, {
+                axios.get(`${API_BASE_URL}/hr/attendance`, {
                     headers: { Authorization: `Bearer ${token}` }
                 }),
-                isCompanyIdValid ? axios.get(`http://localhost:8001/api/v1/hr/attendance/summary?${fullQuery}`, {
+                isCompanyIdValid ? axios.get(`${API_BASE_URL}/hr/attendance`, {
                     headers: { Authorization: `Bearer ${token}` }
                 }) : Promise.resolve({ data: null })
             ]);
@@ -121,7 +122,7 @@ export default function AttendancePage() {
                 check_out: ""
             };
             
-            await axios.post("http://localhost:8001/api/v1/hr/attendance", payload, {
+            await axios.post(`${API_BASE_URL}/hr/attendance`, payload, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setShowModal(false);
@@ -140,7 +141,7 @@ export default function AttendancePage() {
     const handleClockOut = async (recordId: number) => {
         try {
             const token = localStorage.getItem("token");
-            await axios.put(`http://localhost:8001/api/v1/hr/attendance/${recordId}/clock-out`, {}, {
+            await axios.put(`${API_BASE_URL}/hr/attendance`, {}, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             fetchData();

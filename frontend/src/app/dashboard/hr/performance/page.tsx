@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "@/lib/api";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import axios from "axios";
@@ -28,7 +29,7 @@ export default function PerformancePage() {
         try {
             const isCompanyIdValid = companyId && companyId !== "null" && companyId !== "undefined";
             const companyQuery = isCompanyIdValid ? `company_id=${companyId}` : "";
-            const res = await axios.get(`http://localhost:8001/api/v1/hr/performance?${companyQuery}`, {
+            const res = await axios.get(`${API_BASE_URL}/hr/performance-reviews`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 

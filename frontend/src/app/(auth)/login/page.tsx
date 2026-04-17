@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import axios from "axios";
+import apiClient from "@/lib/api";
 
 export default function LoginPage() {
     const [email, setEmail] = useState("admin@gmail.com");
@@ -17,7 +17,7 @@ export default function LoginPage() {
             formData.append('username', email);
             formData.append('password', password);
 
-            const res = await axios.post("http://localhost:8001/api/v1/auth/login", formData, {
+            const res = await apiClient.post("/auth/login", formData, {
                 headers: { "Content-Type": "application/x-www-form-urlencoded" }
             });
             localStorage.setItem("token", res.data.access_token);

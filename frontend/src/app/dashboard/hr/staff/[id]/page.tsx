@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "@/lib/api";
 import React, { useState, useEffect } from "react";
 import { useRouter, useParams, useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -49,8 +50,8 @@ export default function StaffProfilePage() {
         const fetchData = async () => {
             try {
                 const [deptRes, empRes] = await Promise.all([
-                    axios.get("http://localhost:8001/api/v1/hr/departments", { headers: { Authorization: `Bearer ${token}` } }),
-                    axios.get(`http://localhost:8001/api/v1/hr/employees/${employeeId}`, { headers: { Authorization: `Bearer ${token}` } })
+                    axios.get(`${API_BASE_URL}/companies`, { headers: { Authorization: `Bearer ${token}` } }),
+                    axios.get(`${API_BASE_URL}/hr/employees/${id}`, { headers: { Authorization: `Bearer ${token}` } })
                 ]);
                 
                 setDepartments(deptRes.data);
@@ -108,7 +109,7 @@ export default function StaffProfilePage() {
             if (uploadPhoto) data.append("photo", uploadPhoto);
             if (uploadCv) data.append("cv", uploadCv);
 
-            const res = await axios.put(`http://localhost:8001/api/v1/hr/employees/${employeeId}`, data, {
+            const res = await axios.put(`${API_BASE_URL}/hr/employees/${id}`, data, {
                 headers: { 
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'multipart/form-data'

@@ -21,7 +21,8 @@ from app.core.config import settings
 from app.core.database import Base
 import app.models  # register models
 
-config.set_main_option("sqlalchemy.url", settings.SQLALCHEMY_DATABASE_URI)
+url = settings.SQLALCHEMY_DATABASE_URI.replace("%", "%%")
+config.set_main_option("sqlalchemy.url", url)
 target_metadata = Base.metadata
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

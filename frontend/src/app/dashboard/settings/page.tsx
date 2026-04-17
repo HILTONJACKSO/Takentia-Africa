@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "@/lib/api";
 
 import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
@@ -28,10 +29,10 @@ function SettingsContent() {
 
         try {
             const [userRes, companiesRes] = await Promise.all([
-                axios.get('http://localhost:8001/api/v1/auth/me', {
+                axios.get(`${API_BASE_URL}/auth/me`, {
                     headers: { Authorization: `Bearer ${token}` }
                 }),
-                axios.get('http://localhost:8001/api/v1/companies/', {
+                axios.get(`${API_BASE_URL}/companies`, {
                     headers: { Authorization: `Bearer ${token}` }
                 })
             ]);
@@ -65,7 +66,7 @@ function SettingsContent() {
         const token = localStorage.getItem("token");
 
         try {
-            await axios.put('http://localhost:8001/api/v1/auth/me', { email }, {
+            await axios.put(`${API_BASE_URL}/users/me`, { email }, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setSuccess("Email updated successfully.");
@@ -82,7 +83,7 @@ function SettingsContent() {
 
         const token = localStorage.getItem("token");
         try {
-            await axios.put('http://localhost:8001/api/v1/auth/me/password', {
+            await axios.put(`${API_BASE_URL}/users/me/password`, {
                 current_password: passwords.current,
                 new_password: passwords.new
             }, {
@@ -102,7 +103,7 @@ function SettingsContent() {
         const token = localStorage.getItem("token");
 
         try {
-            await axios.put(`http://localhost:8001/api/v1/companies/${companyId}`, companyData, {
+            await axios.put(`${API_BASE_URL}/companies/${company.id}`, companyData, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setSuccess("Company information updated successfully.");

@@ -1,0 +1,305 @@
+{
+  "departments": [
+    {
+      "id": 1,
+      "name": "Human Resources"
+    },
+    {
+      "id": 2,
+      "name": "Finance"
+    },
+    {
+      "id": 3,
+      "name": "Operations"
+    },
+    {
+      "id": 4,
+      "name": "IT Support"
+    },
+    {
+      "id": 5,
+      "name": "Marketing"
+    },
+    {
+      "id": 6,
+      "name": "Sales"
+    }
+  ],
+  "roles": [
+    {
+      "id": 1,
+      "name": "Super Admin"
+    },
+    {
+      "id": 2,
+      "name": "HR Manager"
+    },
+    {
+      "id": 3,
+      "name": "Finance Manager"
+    },
+    {
+      "id": 4,
+      "name": "Operations Officer"
+    },
+    {
+      "id": 5,
+      "name": "Staff"
+    }
+  ],
+  "companies": [
+    {
+      "id": 1,
+      "name": "Talentia Africa",
+      "description": "Talentia Africa Operations"
+    },
+    {
+      "id": 2,
+      "name": "Orange Liberia",
+      "description": "Orange Liberia Operations"
+    },
+    {
+      "id": 3,
+      "name": "African Finch Logging",
+      "description": "African Finch Logging Operations"
+    }
+  ],
+  "employees": [
+    {
+      "id": 1,
+      "first_name": "Dannie",
+      "last_name": "Jackson",
+      "email": "dannie2@gmail.com",
+      "phone": "+231772878340",
+      "date_of_birth": "2007-06-02",
+      "qualification": "BSC Computer Science",
+      "department_id": 2,
+      "position": "Finance officer",
+      "contract_type": "Full-time",
+      "status": "ACTIVE",
+      "hire_date": "2026-04-02",
+      "company_id": 1,
+      "photo_path": "uploads\\photo_dannie2@gmail.com_62ad9569.jpg",
+      "cv_path": "uploads\\cv_dannie2@gmail.com_40989fea.pdf",
+      "base_salary": 450.0
+    }
+  ],
+  "petty_cash_accounts": [
+    {
+      "id": 1,
+      "name": "Office Petty Cash",
+      "balance": 790.0,
+      "company_id": 1
+    }
+  ],
+  "revenues": [
+    {
+      "id": 1,
+      "source": "Orange",
+      "amount": 5000.0,
+      "description": "Goods",
+      "date": "2026-04-02",
+      "reference_number": "998738382",
+      "company_id": 1,
+      "payment_method": null
+    }
+  ],
+  "expenses": [
+    {
+      "id": 1,
+      "category": "Office Supplies",
+      "amount": 1000.0,
+      "description": "Pay Rent",
+      "date": "2026-04-02",
+      "reference_number": "883889229",
+      "payment_method": "CASH",
+      "company_id": 1
+    },
+    {
+      "id": 2,
+      "category": "Office Supplies",
+      "amount": 100.0,
+      "description": "test",
+      "date": "2026-04-02",
+      "reference_number": "39387483",
+      "payment_method": "Cash",
+      "company_id": 1
+    }
+  ],
+  "payroll_runs": [
+    {
+      "id": 1,
+      "month": 4,
+      "year": 2026,
+      "status": "DRAFT",
+      "created_at": "2026-04-02 16:37:53.956995",
+      "total_amount": 463.5,
+      "company_id": null
+    },
+    {
+      "id": 2,
+      "month": 5,
+      "year": 2026,
+      "status": "DRAFT",
+      "created_at": "2026-04-02 16:44:00.373759",
+      "total_amount": 405.0,
+      "company_id": null
+    }
+  ],
+  "attendance": [
+    {
+      "id": 1,
+      "employee_id": 1,
+      "company_id": 1,
+      "date": "2026-04-02",
+      "check_in": "09:00",
+      "check_out": "17:00",
+      "status": "PRESENT",
+      "notes": "Good"
+    },
+    {
+      "id": 2,
+      "employee_id": 1,
+      "company_id": 1,
+      "date": "2026-04-02",
+      "check_in": "17:00:32",
+      "check_out": "16:21:27",
+      "status": "PRESENT",
+      "notes": "test"
+    },
+    {
+      "id": 3,
+      "employee_id": 1,
+      "company_id": 1,
+      "date": "2026-04-04",
+      "check_in": "16:20:28",
+      "check_out": "16:21:44",
+      "status": "PRESENT",
+      "notes": ""
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@gmail.com",
+      "password_hash": "$2b$12$zfUbSe3cJzFvropbVDnhQu4/JQM3RAZ6BPCOK4yhXAtLvVzV4.maC",
+      "is_active": 1,
+      "role_id": 1,
+      "employee_id": null
+    }
+  ],
+  "assets": [
+    {
+      "id": 1,
+      "name": "Hp Laptop",
+      "category": "Electronics",
+      "serial_number": "SN-876653526",
+      "status": "ACTIVE",
+      "company_id": 1,
+      "assigned_to_id": null
+    }
+  ],
+  "cash_movements": [],
+  "payment_requests": [
+    {
+      "id": 1,
+      "title": "Transportation",
+      "description": "Car",
+      "amount": 20.0,
+      "status": "PAID",
+      "request_date": "2026-04-02",
+      "company_id": 1,
+      "employee_id": 1,
+      "attachment_url": null
+    },
+    {
+      "id": 2,
+      "title": "test",
+      "description": "testinh",
+      "amount": 50.0,
+      "status": "PAID",
+      "request_date": "2026-04-02",
+      "company_id": 1,
+      "employee_id": 1,
+      "attachment_url": null
+    }
+  ],
+  "payslips": [
+    {
+      "id": 1,
+      "payroll_run_id": 1,
+      "employee_id": 1,
+      "base_salary": 450.0,
+      "allowances": 22.5,
+      "deductions": 9.0,
+      "net_salary": 463.5
+    },
+    {
+      "id": 2,
+      "payroll_run_id": 2,
+      "employee_id": 1,
+      "base_salary": 450.0,
+      "allowances": 0.0,
+      "deductions": 45.0,
+      "net_salary": 405.0
+    }
+  ],
+  "performance_reviews": [
+    {
+      "id": 1,
+      "employee_id": 1,
+      "company_id": 1,
+      "reviewer_id": 1,
+      "review_date": "2026-04-02",
+      "rating": 4,
+      "comments": "Read More",
+      "goals": "",
+      "strengths": "Good in coding",
+      "improvements": "Communication"
+    }
+  ],
+  "petty_cash_transactions": [
+    {
+      "id": 1,
+      "account_id": 1,
+      "company_id": 1,
+      "type": "IN",
+      "amount": 1000.0,
+      "description": "Goods",
+      "date": "2026-04-02",
+      "approved_by_id": 1
+    },
+    {
+      "id": 2,
+      "account_id": 1,
+      "company_id": 1,
+      "type": "OUT",
+      "amount": 50.0,
+      "description": "Payment for Request #2: test",
+      "date": "2026-04-02",
+      "approved_by_id": 1
+    },
+    {
+      "id": 3,
+      "account_id": 1,
+      "company_id": 1,
+      "type": "OUT",
+      "amount": 100.0,
+      "description": "Expense: test",
+      "date": "2026-04-02",
+      "approved_by_id": 1
+    },
+    {
+      "id": 4,
+      "account_id": 1,
+      "company_id": 1,
+      "type": "OUT",
+      "amount": 60.0,
+      "description": "Car",
+      "date": "2026-04-04",
+      "approved_by_id": 1
+    }
+  ],
+  "maintenance_records": [],
+  "notifications": []
+}

@@ -1,0 +1,17 @@
+[Unit]
+Description=Talantia Africa HR & Operations Backend (FastAPI)
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/talantia/backend
+Environment="PATH=/var/www/talantia/backend/venv/bin"
+EnvironmentFile=/var/www/talantia/backend/.env
+ExecStart=/var/www/talantia/backend/venv/bin/gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app --bind 0.0.0.0:8001
+
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

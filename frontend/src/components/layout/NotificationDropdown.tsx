@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "@/lib/api";
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
@@ -13,7 +14,7 @@ export default function NotificationDropdown() {
         const token = localStorage.getItem("token");
         if (!token) return;
         try {
-            const res = await axios.get("http://localhost:8001/api/v1/notifications/", {
+            const res = await axios.get(`${API_BASE_URL}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setNotifications(res.data);
@@ -47,7 +48,7 @@ export default function NotificationDropdown() {
     const markAsRead = async (id: number) => {
         const token = localStorage.getItem("token");
         try {
-            await axios.patch(`http://localhost:8001/api/v1/notifications/${id}`, { is_read: true }, {
+            await axios.patch(`${API_BASE_URL}`, { is_read: true }, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             fetchNotifications();
@@ -59,7 +60,7 @@ export default function NotificationDropdown() {
     const markAllRead = async () => {
         const token = localStorage.getItem("token");
         try {
-            await axios.post(`http://localhost:8001/api/v1/notifications/mark-all-read`, {}, {
+            await axios.post(`${API_BASE_URL}`, {}, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             fetchNotifications();

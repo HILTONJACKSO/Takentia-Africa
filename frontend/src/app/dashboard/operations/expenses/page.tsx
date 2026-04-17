@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "@/lib/api";
 
 import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
@@ -27,7 +28,7 @@ function ExpensesContent() {
             const isCompanyIdValid = companyId && companyId !== "null" && companyId !== "undefined";
             const companyQuery = isCompanyIdValid ? `company_id=${companyId}` : "";
 
-            const res = await axios.get(`http://localhost:8001/api/v1/operations/expenses?${companyQuery}`, {
+            const res = await axios.get(`${API_BASE_URL}/operations/expenses`, {
                 headers: { Authorization: `Bearer ${token}` },
                 timeout: 5000
             });

@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "@/lib/api";
 
 import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
@@ -47,11 +48,11 @@ function PettyCashContent() {
 
             // Fetch both in parallel
             const [accRes, txRes] = await Promise.all([
-                axios.get(`http://localhost:8001/api/v1/operations/petty-cash/accounts?${companyQuery}`, {
+                axios.get(`${API_BASE_URL}/operations/petty-cash`, {
                     headers: { Authorization: `Bearer ${token}` },
                     timeout: 10000
                 }),
-                axios.get(`http://localhost:8001/api/v1/operations/petty-cash/transactions?${companyQuery}`, {
+                axios.get(`${API_BASE_URL}/operations/petty-cash`, {
                     headers: { Authorization: `Bearer ${token}` },
                     timeout: 10000
                 })
@@ -141,7 +142,7 @@ function PettyCashContent() {
             console.log("Submitting transaction to localhost:8001...", payload);
 
             try {
-                const response = await axios.post("http://localhost:8001/api/v1/operations/petty-cash/transactions", payload, {
+                const response = await axios.post(`${API_BASE_URL}/operations/petty-cash`, payload, {
                     headers: { Authorization: `Bearer ${token}` },
                     timeout: 10000
                 });
@@ -199,7 +200,7 @@ function PettyCashContent() {
             const isCompanyIdValid = companyId && companyId !== "null" && companyId !== "undefined";
             const targetCompanyId = isCompanyIdValid ? companyId : "1";
 
-            await axios.post("http://localhost:8001/api/v1/operations/petty-cash/accounts", {
+            await axios.post(`${API_BASE_URL}/operations/petty-cash`, {
                 ...accountForm,
                 balance: parseFloat(accountForm.balance || "0"),
                 company_id: parseInt(targetCompanyId)

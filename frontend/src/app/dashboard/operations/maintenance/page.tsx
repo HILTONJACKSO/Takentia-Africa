@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "@/lib/api";
 
 import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
@@ -29,11 +30,11 @@ function MaintenanceContent() {
             const companyQuery = isCompanyIdValid ? `company_id=${companyId}` : "";
 
             const [maintRes, assetsRes] = await Promise.all([
-                axios.get(`http://localhost:8001/api/v1/operations/maintenance?${companyQuery}`, {
+                axios.get(`${API_BASE_URL}/operations/maintenance`, {
                     headers: { Authorization: `Bearer ${token}` },
                     timeout: 5000
                 }),
-                axios.get(`http://localhost:8001/api/v1/operations/assets?${companyQuery}`, {
+                axios.get(`${API_BASE_URL}/operations/maintenance`, {
                     headers: { Authorization: `Bearer ${token}` },
                     timeout: 5000
                 })

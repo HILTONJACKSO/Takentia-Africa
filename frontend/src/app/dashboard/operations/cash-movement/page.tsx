@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "@/lib/api";
 
 import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
@@ -29,11 +30,11 @@ function CashMovementContent() {
             const companyQuery = isCompanyIdValid ? `company_id=${companyId}` : "";
 
             const [movRes, accRes] = await Promise.all([
-                axios.get(`http://localhost:8001/api/v1/operations/cash-movements?${companyQuery}`, {
+                axios.get(`${API_BASE_URL}/operations/cash-movement`, {
                     headers: { Authorization: `Bearer ${token}` },
                     timeout: 5000
                 }),
-                axios.get(`http://localhost:8001/api/v1/operations/petty-cash/accounts?${companyQuery}`, {
+                axios.get(`${API_BASE_URL}/operations/cash-movement`, {
                     headers: { Authorization: `Bearer ${token}` },
                     timeout: 5000
                 })

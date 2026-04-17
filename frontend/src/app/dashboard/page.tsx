@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import apiClient from "@/lib/api";
 import Link from "next/link";
 import { Bar, Line } from "react-chartjs-2";
 import {
@@ -27,53 +27,43 @@ export default function DashboardPage() {
             return;
         }
 
-        const config = {
-            headers: { Authorization: `Bearer ${token}` },
-            timeout: 10000
-        };
-
         // Fetch Basic Stats
-        axios.get("http://localhost:8001/api/v1/reports/dashboard-stats", config)
+        apiClient.get("/reports/dashboard-stats")
             .then(res => setStats(res.data))
             .catch(err => {
                 console.error("Dashboard Stats Error:", err);
-                if (err.response?.status === 401) window.location.href = '/login';
             });
 
         // Fetch Financial History
-        axios.get("http://localhost:8001/api/v1/reports/financial-history", config)
+        apiClient.get("/reports/financial-history")
             .then(res => setFinHistory(res.data))
             .catch(err => console.error("Fin History Error:", err));
 
         // Fetch Staff Growth
-        axios.get("http://localhost:8001/api/v1/reports/staff-growth", config)
+        apiClient.get("/reports/staff-growth")
             .then(res => setStaffGrowth(res.data))
             .catch(err => console.error("Staff Growth Error:", err));
 
         // Fetch Companies
-        axios.get("http://localhost:8001/api/v1/companies/", config)
+        apiClient.get("/companies/")
             .then(res => setCompanies(res.data))
             .catch(err => console.error("Companies Error:", err));
 
         // Fetch Recent Activity
-        axios.get("http://localhost:8001/api/v1/reports/recent-activity", config)
+        apiClient.get("/reports/recent-activity")
             .then(res => setActivities(res.data))
             .catch(err => console.error("Recent Activity Error:", err));
 
         // Fetch Attendance Status
-        axios.get("http://localhost:8001/api/v1/hr/attendance/my-status", config)
+        apiClient.get("/hr/attendance/my-status")
             .then(res => setAttStatus(res.data))
             .catch(err => console.error("Attendance Status Error:", err));
     }, []);
 
     const handleAttendanceAction = async () => {
-        const token = localStorage.getItem("token");
         setAttLoading(true);
         try {
-            const res = await axios.post("http://localhost:8001/api/v1/hr/attendance/check-in-out", {}, {
-                headers: { Authorization: `Bearer ${token}` },
-                timeout: 10000
-            });
+            const res = await apiClient.post("/hr/attendance/check-in-out", {});
             setAttStatus(res.data);
             alert(res.data.check_out ? "Successfully Checked Out!" : "Successfully Checked In!");
         } catch (err: any) {
@@ -85,8 +75,6 @@ export default function DashboardPage() {
                 } else if (Array.isArray(err.response.data.detail)) {
                     errorMessage = err.response.data.detail.map((d: any) => d.msg || d.type).join(", ");
                 }
-            } else if (err.message === "Network Error") {
-                errorMessage = "Network Error: Unable to reach the server. Please ensure the backend is running at http://localhost:8001";
             } else {
                 errorMessage = err.message || errorMessage;
             }

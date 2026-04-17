@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "@/lib/api";
 
 import React, { useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
@@ -30,7 +31,7 @@ function NewExpenseContent() {
             try {
                 const isCompanyIdValid = companyId && companyId !== "null" && companyId !== "undefined";
                 const companyQuery = isCompanyIdValid ? `company_id=${companyId}` : "";
-                const res = await axios.get(`http://localhost:8001/api/v1/operations/petty-cash/accounts?${companyQuery}`, {
+                const res = await axios.get(`${API_BASE_URL}/operations/petty-cash`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setAccounts(res.data);
@@ -69,7 +70,7 @@ function NewExpenseContent() {
                 payload.account_id = parseInt(formData.account_id);
             }
 
-            await axios.post(`http://localhost:8001/api/v1/operations/expenses?company_id=${targetCompanyId}`, payload, {
+            await axios.post(`${API_BASE_URL}/operations/expenses`, payload, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 

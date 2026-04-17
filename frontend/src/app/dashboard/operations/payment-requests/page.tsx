@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "@/lib/api";
 
 import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
@@ -34,15 +35,15 @@ function PaymentRequestsContent() {
             const companyQuery = isCompanyIdValid ? `company_id=${companyId}` : "";
 
             const [reqRes, empRes, accRes] = await Promise.all([
-                axios.get(`http://localhost:8001/api/v1/operations/payment-requests?${companyQuery}`, {
+                axios.get(`${API_BASE_URL}/operations/payment-requests`, {
                     headers: { Authorization: `Bearer ${token}` },
                     timeout: 10000
                 }),
-                axios.get(`http://localhost:8001/api/v1/hr/employees?${companyQuery}`, {
+                axios.get(`${API_BASE_URL}/operations/payment-requests`, {
                     headers: { Authorization: `Bearer ${token}` },
                     timeout: 10000
                 }),
-                axios.get(`http://localhost:8001/api/v1/operations/petty-cash/accounts?${companyQuery}`, {
+                axios.get(`${API_BASE_URL}/operations/payment-requests`, {
                     headers: { Authorization: `Bearer ${token}` },
                     timeout: 10000
                 })
@@ -90,10 +91,9 @@ function PaymentRequestsContent() {
             const payload: any = { status: newStatus };
             if (accountId) payload.account_id = parseInt(accountId);
 
-            await axios.patch(`http://localhost:8001/api/v1/operations/payment-requests/${requestId}/status`,
-                payload,
-                { headers: { Authorization: `Bearer ${token}` } }
-            );
+            await axios.patch(`${API_BASE_URL}/operations/payment-requests/${requestId}/status`, payload, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
             // Refresh local state
             setRequests(requests.map(r => r.id === requestId ? { ...r, status: newStatus } : r));
             if (newStatus === 'PAID') {
