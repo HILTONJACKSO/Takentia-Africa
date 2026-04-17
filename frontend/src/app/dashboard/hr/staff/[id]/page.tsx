@@ -51,7 +51,7 @@ export default function StaffProfilePage() {
             try {
                 const [deptRes, empRes] = await Promise.all([
                     axios.get(`${API_BASE_URL}/companies`, { headers: { Authorization: `Bearer ${token}` } }),
-                    axios.get(`${API_BASE_URL}/hr/employees/${id}`, { headers: { Authorization: `Bearer ${token}` } })
+                    axios.get(`${API_BASE_URL}/hr/employees/${employeeId}`, { headers: { Authorization: `Bearer ${token}` } })
                 ]);
                 
                 setDepartments(deptRes.data);
@@ -109,7 +109,7 @@ export default function StaffProfilePage() {
             if (uploadPhoto) data.append("photo", uploadPhoto);
             if (uploadCv) data.append("cv", uploadCv);
 
-            const res = await axios.put(`${API_BASE_URL}/hr/employees/${id}`, data, {
+            const res = await axios.put(`${API_BASE_URL}/hr/employees/${employeeId}`, data, {
                 headers: { 
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'multipart/form-data'
