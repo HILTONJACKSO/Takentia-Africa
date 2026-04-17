@@ -152,7 +152,7 @@ export default function CompanyDashboardPage() {
                     <div className="card h-100 p-4 border-0 shadow-sm text-white" style={{
                         borderRadius: '15px',
                         background: `linear-gradient(135deg, ${brandColor} 0%, ${secondaryBrandColor} 100%)`
-                    }>
+                    }}>
                         <p className="mb-1 small fw-bold text-uppercase opacity-75">Quick Action</p>
                         <Link href={`/dashboard/hr/staff?company_id=${companyId}`} className="text-white text-decoration-none d-flex align-items-center justify-content-between mt-2">
                             <span className="fw-bold">Manage Unit</span>
