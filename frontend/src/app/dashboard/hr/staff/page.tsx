@@ -1,6 +1,6 @@
 "use client";
 import { API_BASE_URL } from "@/lib/api";
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, Suspense } from "react";
 import Link from "next/link";
 import axios from "axios";
 import {
@@ -31,7 +31,7 @@ ChartJS.register(
 
 import { useSearchParams } from "next/navigation";
 
-export default function StaffDirectory() {
+function StaffContent() {
     const searchParams = useSearchParams();
     const companyId = searchParams.get("company_id");
     const [staff, setStaff] = useState<any[]>([]);
@@ -373,5 +373,13 @@ export default function StaffDirectory() {
                 </div>
             </div>
         </div>
+    );
+}
+
+export default function StaffDirectory() {
+    return (
+        <Suspense fallback={<div className="container-fluid py-4 min-vh-100 bg-light">Loading Staff Directory...</div>}>
+            <StaffContent />
+        </Suspense>
     );
 }

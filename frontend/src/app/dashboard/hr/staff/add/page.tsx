@@ -1,12 +1,12 @@
 "use client";
 import { API_BASE_URL } from "@/lib/api";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import axios from "axios";
 
 import { useSearchParams } from "next/navigation";
 
-export default function AddStaffPage() {
+function AddStaffContent() {
     const searchParams = useSearchParams();
     const companyId = searchParams.get("company_id");
     const [departments, setDepartments] = useState<any[]>([]);
@@ -322,5 +322,13 @@ export default function AddStaffPage() {
                 }
             `}</style>
         </div>
+    );
+}
+
+export default function AddStaffPage() {
+    return (
+        <Suspense fallback={<div className="container-fluid py-4 min-vh-100 bg-light">Loading...</div>}>
+            <AddStaffContent />
+        </Suspense>
     );
 }

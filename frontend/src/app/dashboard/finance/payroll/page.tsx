@@ -1,11 +1,11 @@
 "use client";
 import { API_BASE_URL } from "@/lib/api";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import axios from "axios";
 
 import { useSearchParams } from "next/navigation";
 
-export default function PayrollPage() {
+function PayrollContent() {
     const searchParams = useSearchParams();
     const companyId = searchParams.get("company_id");
     const [runs, setRuns] = useState<any[]>([]);
@@ -75,7 +75,7 @@ export default function PayrollPage() {
         setPayslipsLoading(true);
         const token = localStorage.getItem("token");
         try {
-            const res = await axios.get(`${API_BASE_URL}`, {
+            const res = await axios.get(`${API_BASE_URL}/payroll/runs/${run.id}/payslips`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setPayslips(res.data);
@@ -89,7 +89,7 @@ export default function PayrollPage() {
     const handleStatusUpdate = async (runId: number, status: string) => {
         const token = localStorage.getItem("token");
         try {
-            await axios.patch(`${API_BASE_URL}`, {},
+            await axios.patch(`${API_BASE_URL}/payroll/runs/${runId}`, { status },
                 { headers: { Authorization: `Bearer ${token}` } });
             await fetchRuns();
             if (selectedRun && selectedRun.id === runId) {
@@ -327,3 +327,12 @@ export default function PayrollPage() {
         </div>
     );
 }
+
+export default function PayrollPage() {
+    return (
+        <Suspense fallback={<div className="container-fluid py-4 min-vh-100 bg-light">Loading...</div>}>
+            <PayrollContent />
+        </Suspense>
+    );
+}
+

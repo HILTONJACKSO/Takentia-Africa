@@ -1,11 +1,11 @@
 "use client";
 import { API_BASE_URL } from "@/lib/api";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import axios from "axios";
 import Link from "next/link";
 
-export default function PerformancePage() {
+function PerformanceContent() {
     const searchParams = useSearchParams();
     const companyId = searchParams.get("company_id");
 
@@ -210,5 +210,13 @@ export default function PerformancePage() {
             </div>
 
         </div>
+    );
+}
+
+export default function PerformancePage() {
+    return (
+        <Suspense fallback={<div className="container-fluid py-4 min-vh-100 bg-light">Loading Performance Data...</div>}>
+            <PerformanceContent />
+        </Suspense>
     );
 }

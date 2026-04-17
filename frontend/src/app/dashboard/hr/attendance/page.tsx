@@ -1,11 +1,11 @@
 "use client";
 import { API_BASE_URL } from "@/lib/api";
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import axios from "axios";
 
-export default function AttendancePage() {
+function AttendanceContent() {
     const searchParams = useSearchParams();
     const companyId = searchParams.get("company_id");
 
@@ -359,5 +359,13 @@ export default function AttendancePage() {
                 .hover-scale:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
             `}</style>
         </div>
+    );
+}
+
+export default function AttendancePage() {
+    return (
+        <Suspense fallback={<div className="container-fluid py-4 min-vh-100 bg-light">Loading Attendance...</div>}>
+            <AttendanceContent />
+        </Suspense>
     );
 }
